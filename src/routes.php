@@ -21,40 +21,42 @@ $app->group($pattern, function () {})
     ->add(new SimpleTokenAuthentication($app->getContainer(), $options));
 */
 $app = new App();
+
 $app->group('/mock', function(App $app){
     $app->get('/user/{id}',function(Request $request, Response $response, $args){
-        return $response->withJson($args,200);
+        return $response->withJson("Hola mundo");
     });
 
     
-    $app->get('/User',function(Request $request, Response $response, array $args){
+    $app->get('/user',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola Mundo");
+    });
+    $app->post('/user',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
     });
-    $app->post('/User',function(Request $request, Response $response, array $args){
+    $app->put('/user/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
     });
-    $app->put('/User/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
-    });
-    $app->delete('/User/{id}',function(Request $request, Response $response, array $args){
+    $app->delete('/user/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
     });   
 });
-
+/**
 $app->group('/v1', function(App $app){
     $app->get('/user/{id}',function(Request $request, Response $response, $args){
         return $response->withJson($args,200);
     });
-    $app->get('/User',function(Request $request, Response $response, array $args){
+    $app->get('/user',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
     });
-    $app->post('/User',function(Request $request, Response $response, array $args){
+    $app->post('/user',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
     });
-    $app->put('/User/{id}',function(Request $request, Response $response, array $args){
+    $app->put('/user/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
     });
-    $app->delete('/User/{id}',function(Request $request, Response $response, array $args){
+    $app->delete('/user/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
     });
 });
+*/
