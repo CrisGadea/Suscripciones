@@ -20,39 +20,61 @@ $app->group('/users/{id:[0-9]+}', function (App $app) {
 $app->group($pattern, function () {})
     ->add(new SimpleTokenAuthentication($app->getContainer(), $options));
 */
-$app = new App();
+    $app = new App();
 
-$app->group('/mock', function(App $app){
-   /* $app->get('/user/{id}',function(Request $request, Response $response, $args){
-        return $response->withJson("Hola mundo");
+    $app->group('/mock', function(App $app){
+
+    // Fetch DI Container
+    $container = $app->getContainer();
+
+    $basic_auth = new \Slim\HttpBasicAuth\Rule('Cristian', '123', null, '/user');
+    $basic_auth2 = new \Slim\HttpBasicAuth\Rule('Nacho', '123', null, '/user');
+
+    // Register provider
+    $container->register($basic_auth);
+    $container->register($basic_auth2);
+/*
+    $app->get('/user', function ($req, $res, $args) {
+    // Show dashboard
     });
+
+    $app->get('/foo', function ($req, $res, $args) {
+    // Show custom page
+    })->add($basic_auth);
+*/
+
+    $app->get('/user/{id}',function(Request $request, Response $response, $args){
+        return $response->withStatus(200)->withJson(['Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World']);
+    })->add($basic_auth);
+    
     $app->get('/user',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola Mundo");
+        return $response->withStatus(200)->withJson('');
     });
+    
     $app->post('/user',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(201)->withJson("Se ha suscripto correctamente");
     });
     $app->put('/user/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(202)->withJson("Sus datos han sido actualizados");
     });
     $app->delete('/user/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
-    });*/
+        return $response->withStatus(204);
+    });
     
     $app->get('/product/{id}',function(Request $request, Response $response, $args){
-        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200]);
+        return $response->withStatus(200)->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
     });
     $app->get('/product',function(Request $request, Response $response, array $args){
-        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150,200],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200,200]);
+        return $response->withStatus(200)->withJson([['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]]);
     });
     $app->post('/product',function(Request $request, Response $response, array $args){
-        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150,200],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200,200]);
+        return $response->withStatus(201)->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]);
     });
     $app->put('/product/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200]);
+        return $response->withStatus(202)->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
     });
     $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200]);
+        return $response->withStatus(204);
     });
 /*
     $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
@@ -86,4 +108,5 @@ $app->group('/mock', function(App $app){
     $app->delete('/profile/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
     });  */
-});
+   // $app->run();
+    });
