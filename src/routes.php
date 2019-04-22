@@ -26,8 +26,6 @@ $app->group('/mock', function(App $app){
     $app->get('/user/{id}',function(Request $request, Response $response, $args){
         return $response->withJson("Hola mundo");
     });
-
-    
     $app->get('/user',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola Mundo");
     });
@@ -39,7 +37,55 @@ $app->group('/mock', function(App $app){
     });
     $app->delete('/user/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
-    });   
+    });
+    
+    $app->get('/product/{id}',function(Request $request, Response $response, $args){
+        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200]);
+    });
+    $app->get('/product',function(Request $request, Response $response, array $args){
+        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150,200],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200,200]);
+    });
+    $app->post('/product',function(Request $request, Response $response, array $args){
+        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150,200],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200,200]);
+    });
+    $app->put('/product/{id}',function(Request $request, Response $response, array $args){
+        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200]);
+    });
+    $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
+        return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200]);
+    });
+
+    $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
+        return $response->withJson("Hola mundo");
+    });
+    $app->get('/purchase',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola Mundo");
+    });
+    $app->post('/purchase',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola mundo");
+    });
+    $app->put('/purchase/{id}',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola mundo");
+    });
+    $app->delete('/purchase/{id}',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola mundo");
+    });
+
+    $app->get('/profile/{id}',function(Request $request, Response $response, $args){
+        return $response->withJson("Hola mundo");
+    });
+    $app->get('/profile',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola Mundo");
+    });
+    $app->post('/profile',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola mundo");
+    });
+    $app->put('/profile/{id}',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola mundo");
+    });
+    $app->delete('/profile/{id}',function(Request $request, Response $response, array $args){
+        return $response->withJson("Hola mundo");
+    });  
 });
 /**
 $app->group('/v1', function(App $app){
