@@ -23,7 +23,7 @@ $app->group($pattern, function () {})
 $app = new App();
 
 $app->group('/mock', function(App $app){
-    $app->get('/user/{id}',function(Request $request, Response $response, $args){
+   /* $app->get('/user/{id}',function(Request $request, Response $response, $args){
         return $response->withJson("Hola mundo");
     });
     $app->get('/user',function(Request $request, Response $response, array $args){
@@ -37,7 +37,7 @@ $app->group('/mock', function(App $app){
     });
     $app->delete('/user/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
-    });
+    });*/
     
     $app->get('/product/{id}',function(Request $request, Response $response, $args){
         return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200]);
@@ -54,7 +54,7 @@ $app->group('/mock', function(App $app){
     $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250,200]);
     });
-
+/*
     $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
         return $response->withJson("Hola mundo");
     });
@@ -85,24 +85,5 @@ $app->group('/mock', function(App $app){
     });
     $app->delete('/profile/{id}',function(Request $request, Response $response, array $args){
         return $response->withJson("Hola mundo");
-    });  
+    });  */
 });
-/**
-$app->group('/v1', function(App $app){
-    $app->get('/user/{id}',function(Request $request, Response $response, $args){
-        return $response->withJson($args,200);
-    });
-    $app->get('/user',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
-    });
-    $app->post('/user',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
-    });
-    $app->put('/user/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
-    });
-    $app->delete('/user/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
-    });
-});
-*/
