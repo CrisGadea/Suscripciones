@@ -48,7 +48,7 @@ $app->group($pattern, function () {})
     })->add($basic_auth);
     
     $app->get('/user',function(Request $request, Response $response, array $args){
-        return $response->withStatus(200)->withJson('');
+        return $response->withStatus(200)->withJson([['Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World'],['Usuario:'=>'Nacho','Region'=>'Argentina','Email'=>'nacho.gomez@outlook.com','Suscripciones'=>'Avengers, Jurassic World']]);
     });
     
     $app->post('/user',function(Request $request, Response $response, array $args){
@@ -76,37 +76,37 @@ $app->group($pattern, function () {})
     $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
     });
-/*
+
     $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Producto'=>'Avengers']);
     });
     $app->get('/purchase',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola Mundo");
+        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Productos'=>'Avengers, Jurassic World']);
     });
     $app->post('/purchase',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(201)->withJson("La compra se ha realizado exitosamente");
     });
     $app->put('/purchase/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(202);
     });
     $app->delete('/purchase/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(204);
     });
 
     $app->get('/profile/{id}',function(Request $request, Response $response, $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(200)->withJson(['Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World']);
     });
     $app->get('/profile',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola Mundo");
+        return $response->withStatus(200)->withJson([['Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World'],['Usuario:'=>'Nacho','Region'=>'Argentina','Email'=>'nacho.gomez@outlook.com','Suscripciones'=>'Avengers, Jurassic World']]);
     });
     $app->post('/profile',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(201)->withJson("El perfil se ha creado exitosamente");
     });
     $app->put('/profile/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
+        return $response->withStatus(202)->withJson("Se han modificado los datos");
     });
     $app->delete('/profile/{id}',function(Request $request, Response $response, array $args){
-        return $response->withJson("Hola mundo");
-    });  */
+        return $response->withStatus(204);
+    });  
    // $app->run();
     });
