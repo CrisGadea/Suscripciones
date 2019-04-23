@@ -44,11 +44,11 @@ $app->group($pattern, function () {})
 */
 
     $app->get('/user/{id}',function(Request $request, Response $response, $args){
-        return $response->withStatus(200)->withJson(['Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World']);
+        return $response->withStatus(200)->withJson(['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com']);
     })->add($basic_auth);
     
     $app->get('/user',function(Request $request, Response $response, array $args){
-        return $response->withStatus(200)->withJson([['Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World'],['Usuario:'=>'Nacho','Region'=>'Argentina','Email'=>'nacho.gomez@outlook.com','Suscripciones'=>'Avengers, Jurassic World']]);
+        return $response->withStatus(200)->withJson([['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World'],['Id'=>1,'Usuario:'=>'Nacho','Region'=>'Argentina','Email'=>'nacho.gomez@outlook.com','Suscripciones'=>'Avengers, Jurassic World']]);
     });
     
     $app->post('/user',function(Request $request, Response $response, array $args){
@@ -62,26 +62,26 @@ $app->group($pattern, function () {})
     });
     
     $app->get('/product/{id}',function(Request $request, Response $response, $args){
-        return $response->withStatus(200)->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
+        return $response->withStatus(200)->withJson(['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
     });
     $app->get('/product',function(Request $request, Response $response, array $args){
-        return $response->withStatus(200)->withJson([['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]]);
+        return $response->withStatus(200)->withJson([['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Id'=>1,'Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]]);
     });
     $app->post('/product',function(Request $request, Response $response, array $args){
-        return $response->withStatus(201)->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]);
+        return $response->withStatus(201)->withJson(['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]);
     });
     $app->put('/product/{id}',function(Request $request, Response $response, array $args){
-        return $response->withStatus(202)->withJson(['Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
+        return $response->withStatus(202)->withJson(['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
     });
     $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
     });
 
     $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
-        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Producto'=>'Avengers']);
+        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers','Precio'=>250]);
     });
     $app->get('/purchase',function(Request $request, Response $response, array $args){
-        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Productos'=>'Avengers, Jurassic World']);
+        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers'],['Usuario'=>'Nacho', 'Id'=>0,'Producto'=>'Avengers','Precio'=>25]);
     });
     $app->post('/purchase',function(Request $request, Response $response, array $args){
         return $response->withStatus(201)->withJson("La compra se ha realizado exitosamente");
@@ -94,10 +94,10 @@ $app->group($pattern, function () {})
     });
 
     $app->get('/profile/{id}',function(Request $request, Response $response, $args){
-        return $response->withStatus(200)->withJson(['Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World']);
+        return $response->withStatus(200)->withJson(['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World']);
     });
     $app->get('/profile',function(Request $request, Response $response, array $args){
-        return $response->withStatus(200)->withJson([['Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World'],['Usuario:'=>'Nacho','Region'=>'Argentina','Email'=>'nacho.gomez@outlook.com','Suscripciones'=>'Avengers, Jurassic World']]);
+        return $response->withStatus(200)->withJson([['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World'],['Id'=>1,'Usuario:'=>'Nacho','Region'=>'Argentina','Email'=>'nacho.gomez@outlook.com','Suscripciones'=>'Avengers, Jurassic World']]);
     });
     $app->post('/profile',function(Request $request, Response $response, array $args){
         return $response->withStatus(201)->withJson("El perfil se ha creado exitosamente");
