@@ -76,7 +76,7 @@ $app->group($pattern, function () {})
         return $response->withStatus(200)->withJson([['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Id'=>1,'Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]]);
     });
     $app->post('/product',function(Request $request, Response $response, array $args){
-        return $response->withStatus(201)->withJson(['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]);
+        return $response->withStatus(201)->withJson("Se ha suscripto correctamente");
     });
     $app->put('/product/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(202)->withJson(['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
