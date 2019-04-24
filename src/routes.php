@@ -5,29 +5,15 @@ use Slim\Http\Response;
 use Slim\App;
 
 // Routes
-/**
 
-$app->group('/users/{id:[0-9]+}', function (App $app) {
-    $app->map(['GET', 'DELETE', 'PATCH', 'PUT'], '', function ($request, $response, $args) {
-        // Find, delete, patch or replace user identified by $args['id']
-    })->setName('user');
-    $app->get('/reset-password', function ($request, $response, $args) {
-        // Route for /users/{id:[0-9]+}/reset-password
-        // Reset the password for user identified by $args['id']
-    })->setName('user-password-reset');
-});
-
-$app->group($pattern, function () {})
-    ->add(new SimpleTokenAuthentication($app->getContainer(), $options));
-*/
     $app = new App();
 
     $app->get('/',function(){
-        return "SlimFramework";
+        return "Bienvenido a nuestra plataforma";
     });
 
-    $app->get('/name',function(){
-        return "SlimFramework";
+    $app->get('/{id}',function(){
+        return "Bienvenido a nuestra plataforma";
     });
 
     $app->group('/mock', function(App $app){
@@ -41,15 +27,6 @@ $app->group($pattern, function () {})
     // Register provider
     $container->register($basic_auth);
     $container->register($basic_auth2);
-/*
-    $app->get('/user', function ($req, $res, $args) {
-    // Show dashboard
-    });
-
-    $app->get('/foo', function ($req, $res, $args) {
-    // Show custom page
-    })->add($basic_auth);
-*/
 
     $app->get('/user/{id}',function(Request $request, Response $response, $args){
         return $response->withStatus(200)->withJson(['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com']);
@@ -116,5 +93,5 @@ $app->group($pattern, function () {})
     $app->delete('/profile/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
     });  
-   // $app->run();
+  
     });

@@ -19,7 +19,7 @@ class RoutesTest extends TestCase
         $this->http = null;
     }
 
-    public function testGet()
+    public function testGetProducts()
 {
     $response = $this->http->request('GET', 'mock/product');
 
@@ -28,7 +28,7 @@ class RoutesTest extends TestCase
     $contentType = $response->getHeaders()["Content-Type"][0];
     $this->assertEquals("application/json", $contentType);
 }
-public function testGetId()
+public function testGetProduct()
 {
     $response = $this->http->request('GET', 'mock/product/{id}');
 
@@ -38,7 +38,7 @@ public function testGetId()
     $this->assertEquals("application/json", $contentType);
 }
 
-public function testPut()
+public function testPutProduct()
 {
     $response = $this->http->request('PUT', 'mock/product/{id}', ['http_errors' => false]);
 
@@ -48,7 +48,7 @@ public function testPut()
     $this->assertEquals(202, $response->getStatusCode());
 }
 
-public function testPost()
+public function testPostProduct()
 {
     $response = $this->http->request('POST', 'mock/product');
     
@@ -59,7 +59,7 @@ public function testPost()
 
 }
 
-public function testDelete()
+public function testDeleteProduct()
 {
     $response = $this->http->request('DELETE', 'mock/product/{id}');
 
