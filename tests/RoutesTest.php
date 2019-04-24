@@ -1,23 +1,22 @@
 <?php
 
-namespace Tests;
+namespace Tests\Functional;
 
 use PHPUnit\Framework\TestCase;
-
 use GuzzleHttp\Client;
+use Slim\App;
+use Slim\Http\Request;
+use Slim\Http\Response;
+use Slim\Http\Environment;
 
-class RoutesTest extends TestCase
-{
-    private $http;
 
-    public function setUp()
-    {
-        $this->http = new Client(['base_uri' => 'https://httpbin.org/']);
+
+class RoutesTest extends TestCase {
+    
+    public function user(){
+        $this->assertEquals();
     }
-
-    public function tearDown() {
-        $this->http = null;
-    }
+<<<<<<< HEAD
 
     public function testGet()
 {
@@ -49,4 +48,6 @@ public function testDelete()
 
 }
 
+=======
+>>>>>>> 05ec7604a4d10257ad647de406bb3f7a5bcd3b14
 }
