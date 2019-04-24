@@ -60,6 +60,9 @@ public function testPost()
     
     $this->assertEquals(201, $response->getStatusCode());
 
+    $contentType = $response->getHeaders()["Content-Type"][0];
+    $this->assertEquals("application/json", $contentType);
+
 }
 
 public function testDelete()
