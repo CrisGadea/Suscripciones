@@ -38,4 +38,15 @@ public function testPut()
 
     $this->assertEquals(405, $response->getStatusCode());
 }
+
+public function testPost()
+{
+
+}
+
+public function testDelete()
+{
+
+}
+
 }
