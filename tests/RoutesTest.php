@@ -23,8 +23,6 @@ class RoutesTest extends TestCase
 {
     $response = $this->http->request('GET', 'mock/product');
 
-    $this->directoryExists('mock/product/{id}');
-
     $this->assertEquals(200, $response->getStatusCode());
 
     $contentType = $response->getHeaders()["Content-Type"][0];
@@ -33,8 +31,6 @@ class RoutesTest extends TestCase
 public function testGetId()
 {
     $response = $this->http->request('GET', 'mock/product/{id}');
-
-    $this->directoryExists('mock/product/{id}');
 
     $this->assertEquals(200, $response->getStatusCode());
 
@@ -45,8 +41,6 @@ public function testGetId()
 public function testPut()
 {
     $response = $this->http->request('PUT', 'mock/product/{id}', ['http_errors' => false]);
-
-    $this->directoryExists('mock/product/{id}');
 
     $contentType = $response->getHeaders()["Content-Type"][0];
     $this->assertEquals("application/json", $contentType);
