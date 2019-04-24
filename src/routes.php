@@ -22,6 +22,14 @@ $app->group($pattern, function () {})
 */
     $app = new App();
 
+    $app->get('/',function(){
+        return "SlimFramework";
+    });
+
+    $app->get('/name',function(){
+        return "SlimFramework";
+    });
+
     $app->group('/mock', function(App $app){
 
     // Fetch DI Container

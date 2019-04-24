@@ -1,0 +1,9 @@
+s\Functional\Homepage
+ [x] Get homepage without name
+ [x] Get homepage with greeting
+ [x] Post homepage not allowed
+
+s\Routes
+ [x] Get
+ [x] Put
+
