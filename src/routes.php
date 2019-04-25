@@ -56,7 +56,7 @@ use Slim\App;
         return $response->withStatus(201)->withJson("Se ha suscripto correctamente");
     });
     $app->put('/product/{id}',function(Request $request, Response $response, array $args){
-        return $response->withStatus(202)->withJson(['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
+        return $response->withStatus(202)->withJson("Se han actualizado los datos");
     });
     $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
