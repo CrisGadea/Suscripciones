@@ -5,32 +5,18 @@ use Slim\Http\Response;
 use Slim\App;
 
 // Routes
-/**
 
-$app->group('/users/{id:[0-9]+}', function (App $app) {
-    $app->map(['GET', 'DELETE', 'PATCH', 'PUT'], '', function ($request, $response, $args) {
-        // Find, delete, patch or replace user identified by $args['id']
-    })->setName('user');
-    $app->get('/reset-password', function ($request, $response, $args) {
-        // Route for /users/{id:[0-9]+}/reset-password
-        // Reset the password for user identified by $args['id']
-    })->setName('user-password-reset');
+$app = new App();
+
+$app->get('/',function(){
+    return "SlimFramework";
 });
 
-$app->group($pattern, function () {})
-    ->add(new SimpleTokenAuthentication($app->getContainer(), $options));
-*/
-    $app = new App();
+$app->get('/name',function(){
+    return "SlimFramework";
+});
 
-    $app->get('/',function(){
-        return "SlimFramework";
-    });
-
-    $app->get('/name',function(){
-        return "SlimFramework";
-    });
-
-    $app->group('/mock', function(App $app){
+$app->group('/mock', function(App $app){
 
     // Fetch DI Container
     $container = $app->getContainer();
@@ -41,15 +27,7 @@ $app->group($pattern, function () {})
     // Register provider
     $container->register($basic_auth);
     $container->register($basic_auth2);
-/*
-    $app->get('/user', function ($req, $res, $args) {
-    // Show dashboard
-    });
 
-    $app->get('/foo', function ($req, $res, $args) {
-    // Show custom page
-    })->add($basic_auth);
-*/
 
     $app->get('/user/{id}',function(Request $request, Response $response, $args){
         return $response->withStatus(200)->withJson(['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com']);
@@ -60,7 +38,7 @@ $app->group($pattern, function () {})
     });
     
     $app->post('/user',function(Request $request, Response $response, array $args){
-        return $response->withStatus(201)->withJson("Se ha suscripto correctamente");
+        return $response->withStatus(201)->withJson("Se ha creado correctamente");
     });
     $app->put('/user/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(202)->withJson("Sus datos han sido actualizados");
@@ -86,10 +64,10 @@ $app->group($pattern, function () {})
     });
 
     $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
-        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers','Precio'=>250]);
+        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers','Precio'=>250,'Fecha'=>'12/12/2000']);
     });
     $app->get('/purchase',function(Request $request, Response $response, array $args){
-        return $response->withStatus(200)->withJson([['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers','precio'=>250],['Usuario'=>'Nacho', 'Id'=>1,'Producto'=>'Avengers','Precio'=>25]]);
+        return $response->withStatus(200)->withJson([['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers','precio'=>250,'Fecha'=>'12/12/2000'],['Usuario'=>'Nacho', 'Id'=>1,'Producto'=>'Avengers','Precio'=>25,'Fecha'=>'12/12/2000']]);
     });
     $app->post('/purchase',function(Request $request, Response $response, array $args){
         return $response->withStatus(201)->withJson("La compra se ha realizado exitosamente");
@@ -116,5 +94,4 @@ $app->group($pattern, function () {})
     $app->delete('/profile/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
     });  
-   // $app->run();
-    });
+});
