@@ -89,13 +89,13 @@ $app->group($pattern, function () {})
         return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers','Precio'=>250]);
     });
     $app->get('/purchase',function(Request $request, Response $response, array $args){
-        return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers'],['Usuario'=>'Nacho', 'Id'=>0,'Producto'=>'Avengers','Precio'=>25]);
+        return $response->withStatus(200)->withJson([['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers','precio'=>250],['Usuario'=>'Nacho', 'Id'=>1,'Producto'=>'Avengers','Precio'=>25]]);
     });
     $app->post('/purchase',function(Request $request, Response $response, array $args){
         return $response->withStatus(201)->withJson("La compra se ha realizado exitosamente");
     });
     $app->put('/purchase/{id}',function(Request $request, Response $response, array $args){
-        return $response->withStatus(202);
+        return $response->withStatus(202)->withJson("Datos modificados correctamente") ;
     });
     $app->delete('/purchase/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
