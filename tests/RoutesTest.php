@@ -12,30 +12,58 @@ class RoutesTest extends TestCase
 
     public function setUp()
     {
-        $this->http = new Client(['base_uri' => 'https://httpbin.org/']);
+        $this->http = new Client(['base_uri' => 'http://localhost:8080/']);
     }
 
     public function tearDown() {
         $this->http = null;
     }
 
-    public function testGet()
+    public function testGetProducts()
 {
-    $response = $this->http->request('GET', 'mock/user-agent');
+    $response = $this->http->request('GET', 'mock/product');
 
     $this->assertEquals(200, $response->getStatusCode());
 
     $contentType = $response->getHeaders()["Content-Type"][0];
-    $this->assertEquals("applciation/json", $contentType);
+    $this->assertEquals("application/json", $contentType);
+}
+public function testGetProduct()
+{
+    $response = $this->http->request('GET', 'mock/product/{id}');
 
-    $userAgent = json_decode($response->getBody())->{"user-agent"};
-    $this->assertRegexp('/Guzzle/', $userAgent);
+    $this->assertEquals(200, $response->getStatusCode());
+
+    $contentType = $response->getHeaders()["Content-Type"][0];
+    $this->assertEquals("application/json", $contentType);
 }
 
-public function testPut()
+public function testPutProduct()
 {
-    $response = $this->http->request('PUT', 'user-agent', ['http_errors' => false]);
+    $response = $this->http->request('PUT', 'mock/product/{id}', ['http_errors' => false]);
 
-    $this->assertEquals(405, $response->getStatusCode());
+    $contentType = $response->getHeaders()["Content-Type"][0];
+    $this->assertEquals("application/json", $contentType);
+
+    $this->assertEquals(202, $response->getStatusCode());
+}
+
+public function testPostProduct()
+{
+    $response = $this->http->request('POST', 'mock/product');
+    
+    $this->assertEquals(201, $response->getStatusCode());
+
+    $contentType = $response->getHeaders()["Content-Type"][0];
+    $this->assertEquals("application/json", $contentType);
+
+}
+
+public function testDeleteProduct()
+{
+    $response = $this->http->request('DELETE', 'mock/product/{id}');
+
+    $this->assertEquals(204, $response->getStatusCode());
+
 }
 }
