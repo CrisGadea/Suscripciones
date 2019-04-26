@@ -17,7 +17,8 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
         "julionc/slim-basic-auth-middleware": "^3.0",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "phpmongokit/laravel-mongo-odm": "^0.0.1"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
