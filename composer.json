@@ -17,12 +17,8 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
         "julionc/slim-basic-auth-middleware": "^3.0",
-<<<<<<< HEAD
         "guzzlehttp/guzzle": "^6.3",
         "phpmongokit/laravel-mongo-odm": "^0.0.1"
-=======
-        "guzzlehttp/guzzle": "~6.0"
->>>>>>> 5c67c3061f666fa8accef12b6ea502fc6a8da8af
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
@@ -30,6 +26,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
         }
     },
     "config": {
