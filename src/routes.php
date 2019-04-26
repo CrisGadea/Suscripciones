@@ -3,7 +3,7 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\App;
-
+use mongoDB;
 // Routes
 $app = new App();
 $app->get('/',function(){
