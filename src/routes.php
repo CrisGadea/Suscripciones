@@ -86,4 +86,8 @@ $app->group('/mock', function(App $app){
         return $response->withStatus(204);
     });   
 
+<<<<<<< HEAD
+=======
+    });
+>>>>>>> 5c67c3061f666fa8accef12b6ea502fc6a8da8af
     });
