@@ -21,16 +21,15 @@ $app->group('/mock', function(App $app){
     // Register provider
     $container->register($basic_auth);
     $container->register($basic_auth2);
+
     $app->get('/user/{id}',function(Request $request, Response $response, $args){
         return $response->withStatus(200)->withJson(['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com']);
     })->add($basic_auth);
-    
     $app->get('/user',function(Request $request, Response $response, array $args){
         return $response->withStatus(200)->withJson([['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World'],['Id'=>1,'Usuario:'=>'Nacho','Region'=>'Argentina','Email'=>'nacho.gomez@outlook.com','Suscripciones'=>'Avengers, Jurassic World']]);
     });
-    
     $app->post('/user',function(Request $request, Response $response, array $args){
-        return $response->withStatus(201)->withJson("Se ha creado correctamente");
+        return $response->withStatus(201)->withJson("Su usuario se ha creado correctamente");
     });
     $app->put('/user/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(202)->withJson("Sus datos han sido actualizados");
@@ -46,14 +45,15 @@ $app->group('/mock', function(App $app){
         return $response->withStatus(200)->withJson([['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Id'=>1,'Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]]);
     });
     $app->post('/product',function(Request $request, Response $response, array $args){
-        return $response->withStatus(201)->withJson(['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250],['Nombre:'=>'Jurassic World','Descripcion:'=>'Pelicula de dinosaurios','Precio:'=>150],['Nombre:'=>'Rapido y Furioso','Descripcion:'=>'Pelicula de autos','Precio:'=>200]);
+        return $response->withStatus(201)->withJson("Se ha suscripto correctamente");
     });
     $app->put('/product/{id}',function(Request $request, Response $response, array $args){
-        return $response->withStatus(202)->withJson(['Id'=>0,'Nombre:'=>'Avengers','Descripcion:'=>'Pelicula de superheroes','Precio:'=>250]);
+        return $response->withStatus(202)->withJson("Se han actualizado los datos");
     });
     $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
     });
+
     $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
         return $response->withStatus(200)->withJson(['Usuario'=>'Cristian','Id'=>0,'Producto'=>'Avengers','Precio'=>250,'Fecha'=>'12/12/2000']);
     });
@@ -69,6 +69,7 @@ $app->group('/mock', function(App $app){
     $app->delete('/purchase/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
     });
+
     $app->get('/profile/{id}',function(Request $request, Response $response, $args){
         return $response->withStatus(200)->withJson(['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World']);
     });
@@ -84,4 +85,5 @@ $app->group('/mock', function(App $app){
     $app->delete('/profile/{id}',function(Request $request, Response $response, array $args){
         return $response->withStatus(204);
     });   
+
     });
