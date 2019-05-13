@@ -1,32 +1,37 @@
 <?php
 
+namespace Src;
+
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\App;
-namespace Src;
+use Slim\Container;
+use \MongoException;
+use Sokil\Mongo\Validator\Exception;
+use Sokil\Mongo\Collection;
+
 
 
 // Routes
-$app = new App();
 $app->get('/',function(){
     return "Bienvenido a nuestra plataforma";
 });
 $app->get('/{id}',function(){
     return "Bienvenido a nuestra plataforma";
 });
-
-$app->group('/mock', function(App $app){
-    // Fetch DI Container
-    $container = $app->getContainer();
-    $basic_auth = new \Slim\HttpBasicAuth\Rule('Cristian', '123', null, '/user');
+// Fetch DI Container
+$container = $app->getContainer();
+//var_dump(__METHOD__,$container,$app);die;
+$app->group('/mock', function(App $app) use ($container){
+   /* $basic_auth = new \Slim\HttpBasicAuth\Rule('Cristian', '123', null, '/user');
     $basic_auth2 = new \Slim\HttpBasicAuth\Rule('Nacho', '123', null, '/user');
     // Register provider
     $container->register($basic_auth);
     $container->register($basic_auth2);
-
-    $app->get('/user/{id}',function(Request $request, Response $response, $args){
+*/
+    $app->get('/user/{id}',function(Request $request, Response $response, $args) use ($container){
         return $response->withStatus(200)->withJson(['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com']);
-    })->add($basic_auth);
+    });
     $app->get('/user',function(Request $request, Response $response, array $args){
         return $response->withStatus(200)->withJson([['Id'=>0,'Usuario:'=>'Cristian','Region'=>'Argentina','Email'=>'cristianhernangadea@gmail.com','Suscripciones'=>'Avengers, Jurassic World'],['Id'=>1,'Usuario:'=>'Nacho','Region'=>'Argentina','Email'=>'nacho.gomez@outlook.com','Suscripciones'=>'Avengers, Jurassic World']]);
     });
@@ -88,8 +93,123 @@ $app->group('/mock', function(App $app){
         return $response->withStatus(204);
     });   
 
-<<<<<<< HEAD
-=======
+});
+$app->group('/v1', function(App $app){
+    $app->get('/product[/]',function(Request $request, Response $response,$id) use ($app){
+        $db = $app->getContainer()['db'];
+        $mgProducts = $db->getCollection('products');
+        return $response->withStatus(200)->withJson($mgProducts->find()->slice('products',5)->findAll());
     });
->>>>>>> 5c67c3061f666fa8accef12b6ea502fc6a8da8af
+    $app->get('/product/{id}',function(Request $request, Response $response, $id) use ($app){
+        $db = $app->getContainer()['db'];
+        $mgProducts = $db->getCollection('products');
+        $route = $request->getAttribute('route');
+        $id = $route->getArgument('id');    
+        $product = $mgProducts->getDocument($id);
+        return $response->withStatus(200)->withJson($product);
     });
+    $app->put('/product/{id}',function(Request $request, Response $response, $id) use ($app){
+        $db = $app->getContainer()['db'];
+        $mgProducts = $db->getCollection('products');
+        $route = $request->getAttribute('route');
+        $id = $route->getArgument('id'); 
+        $datos = $request->getParsedBody();
+        //
+        $product = $mgProducts->update( 
+            // lo que busca
+            array(
+            array(
+                '_id'=>$id
+            ), 
+            [ 
+                'name' => $datos['nombre'],
+                'price' => $datos['precio'],
+                'description' => $datos['descripcion']
+            ]),//lo que cambio 
+                    
+            array(
+                'multiple' => false,
+            )
+            );
+        return $response->withStatus(202)->withJson($product);
+    });
+
+    $app->post('/product',function(Request $request, Response $response) use ($app){
+        $db = $app->getContainer()['db'];
+        $mgProducts = $db->getCollection('products');
+        $datos = $request->getParsedBody();
+        //
+        $product = $mgProducts->createDocument( 
+            [ 
+                'name' => $datos['nombre'],
+                'price' => $datos['precio'],
+                'description' => $datos['descripcion']
+            ]
+        )->save(false);
+        /*$product=$mgProducts->insert(
+            [ 
+                'name' => $datos['nombre'],
+                'price' => $datos['precio'],
+                'description' => $datos['descripcion']
+            ]
+        );
+        */
+        return $response->withStatus(201)->withJson($product);
+    });
+/*
+    $app->get('/user/{id}',function(Request $request, Response $response, $args){
+        return $response->withStatus(200)->withJson();
+    });
+    $app->get('/user',function(Request $request, Response $response, array $args){
+        return $response->withStatus(200)->withJson();
+    });
+    $app->post('/user',function(Request $request, Response $response, array $args){
+        return $response->withStatus(201)->withJson();
+    });
+    $app->put('/user/{id}',function(Request $request, Response $response, array $args){
+        return $response->withStatus(202)->withJson();
+    });
+    $app->delete('/user/{id}',function(Request $request, Response $response, array $args){
+        return $response->withStatus(204);
+    });
+    
+    
+    
+    $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
+        return $response->withStatus(204);
+    });
+
+    $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
+        return $response->withStatus(200)->withJson();
+    });
+    $app->get('/purchase',function(Request $request, Response $response, array $args){
+        return $response->withStatus(200)->withJson();
+    });
+    $app->post('/purchase',function(Request $request, Response $response, array $args){
+        return $response->withStatus(201)->withJson();
+    });
+    $app->put('/purchase/{id}',function(Request $request, Response $response, array $args){
+        return $response->withStatus(202)->withJson() ;
+    });
+    $app->delete('/purchase/{id}',function(Request $request, Response $response, array $args){
+        return $response->withStatus(204);
+    });
+
+    $app->get('/profile/{id}',function(Request $request, Response $response, $args){
+        return $response->withStatus(200)->withJson();
+    });
+    $app->get('/profile',function(Request $request, Response $response, array $args){
+        return $response->withStatus(200)->withJson();
+    });
+    $app->post('/profile',function(Request $request, Response $response, array $args){
+        return $response->withStatus(201)->withJson();
+    });
+    $app->put('/profile/{id}',function(Request $request, Response $response, array $args){
+        return $response->withStatus(202)->withJson();
+    });
+    $app->delete('/profile/{id}',function(Request $request, Response $response, array $args){
+        return $response->withStatus(204);
+    });
+*/ 
+});
+//var_dump(__METHOD__,__FILE__);die;

@@ -195,6 +195,4 @@ public function testDeletePurchase()
 $response = $this->http->request('DELETE', 'mock/purchase/{id}');
 $this->assertEquals(204, $response->getStatusCode());
 }
-
-
 }
