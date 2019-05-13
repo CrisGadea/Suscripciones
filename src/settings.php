@@ -9,27 +9,12 @@ return [
             'template_path' => __DIR__ . '/../templates/',
         ],
 
-        // Monolog settings
-        'logger' => [
-            'name' => 'slim-app',
-            'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
-            'level' => \Monolog\Logger::DEBUG,
-        ],
-
-	 // database connection details         
+        // database connection details         
         "db" => [            
-             "host" => "your-host",             
-             "dbname" => "your-database-name",             
-             "user" => "your-db-username",            
-             "pass" => "your-db-password"        
+             "host" => "ds059672.mlab.com:59672",             
+             "user" => "trainee",            
+             "pass" => "abc123",
+             "dbname" => "academia_globalhitss",             
          ],
-	
-
-        // jwt settings
-        "jwt" => [
-            'secret' => 'supersecretkeyyoushouldnotcommittogithub'
-        ]
-
     ],
-	
 ];
