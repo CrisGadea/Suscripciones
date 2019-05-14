@@ -99,27 +99,53 @@ $app->group('/v1', function(App $app){
         $db = $app->getContainer()['db'];
         $mgProducts = $db->getCollection('products');
         return $response->withStatus(200)->withJson($mgProducts->find()->slice('products',5)->findAll());
-    });
+    });       
+
+
     $app->get('/product/{id}',function(Request $request, Response $response, $id) use ($app){
+    try {
         $db = $app->getContainer()['db'];
         $mgProducts = $db->getCollection('products');
         $route = $request->getAttribute('route');
-        $id = $route->getArgument('id');    
+        $id = $route->getArgument('id');
         $product = $mgProducts->getDocument($id);
+        if ($product === null) {
+            throw new Exception("Not found");
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
+        $obj = new \stdClass;
+        $obj->message = 'This product does not exists';
+        return $response->withStatus(404)->withJson( $obj);
+
+    }    
         return $response->withStatus(200)->withJson($product);
+    
     });
+    
     $app->put('/product/{id}',function(Request $request, Response $response, $id) use ($app){
+        try {
         $db = $app->getContainer()['db'];
         $mgProducts = $db->getCollection('products');
         $route = $request->getAttribute('route');
         $id = $route->getArgument('id'); 
         $data = $mgProducts->getDocument($id);
+        if ($data === null) {
+            throw new Exception("Not found");
+        }
         $datos = $request->getParsedBody();
         $product = $data
         ->set('name',$datos['nombre'])
         ->set('price',(int)$datos['precio'])
         ->set('description',$datos['descripcion'])
         ->save();
+        
+        }catch (Exception $e) {
+                echo $e->getMessage();
+                $obj = new \stdClass;
+                $obj->message = 'This product cant be updated because does not exist';
+                return $response->withStatus(404)->withJson( $obj);
+            }
         return $response->withStatus(202)->withJson($product);
     });
 
@@ -138,11 +164,21 @@ $app->group('/v1', function(App $app){
     });
 
     $app->delete('/product/{id}',function(Request $request, Response $response, $id) use ($app){
+        try {
         $db = $app->getContainer()['db'];
         $mgProducts = $db->getCollection('products');
         $route = $request->getAttribute('route');
         $id = $route->getArgument('id');
+        if ($mgProducts->getDocument($id)===null){
+            throw new Exception("Not found");
+        }
         $product = $mgProducts->getDocument($id)->delete(); 
+        }catch (Exception $e) {
+            echo $e->getMessage();
+            $obj = new \stdClass;
+            $obj->message = 'This product cant be deleted because does not exist';
+            return $response->withStatus(404)->withJson( $obj);
+        }
         return $response->withStatus(204);
     });
 /*
@@ -196,4 +232,3 @@ $app->group('/v1', function(App $app){
     });
 */ 
 });
-//var_dump(__METHOD__,__FILE__);die;
