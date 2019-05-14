@@ -117,28 +117,9 @@ $app->group('/v1', function(App $app){
         $datos = $request->getParsedBody();
         $product = $data
         ->set('name',$datos['nombre'])
-        ->set('price',$datos['precio'])
+        ->set('price',(int)$datos['precio'])
         ->set('description',$datos['descripcion'])
         ->save();
-
-        /*
-        $product = $mgProducts->update( 
-            // lo que busca
-            array(
-            array(
-                '_id'=>$id
-            ), 
-            [ 
-                'name' => $datos['nombre'],
-                'price' => $datos['precio'],
-                'description' => $datos['descripcion']
-            ]),//lo que cambio 
-                    
-            array(
-                'multiple' => false,
-            )
-            );
-            */
         return $response->withStatus(202)->withJson($product);
     });
 
