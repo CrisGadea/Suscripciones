@@ -5,10 +5,8 @@ namespace Src;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\App;
-use Slim\Container;
 use \MongoException;
 use Sokil\Mongo\Validator\Exception;
-use Sokil\Mongo\Collection;
 
 
 
