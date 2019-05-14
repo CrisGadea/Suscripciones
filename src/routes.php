@@ -115,7 +115,11 @@ $app->group('/v1', function(App $app){
         $id = $route->getArgument('id'); 
         $data = $mgProducts->getDocument($id);
         $datos = $request->getParsedBody();
-        $product = $data->set('name',$datos)->save();
+        $product = $data
+        ->set('name',$datos['nombre'])
+        ->set('price',$datos['precio'])
+        ->set('description',$datos['descripcion'])
+        ->save();
 
         /*
         $product = $mgProducts->update( 
