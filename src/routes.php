@@ -21,7 +21,7 @@ $app->get('/{id}',function(){
 });
 // Fetch DI Container
 $container = $app->getContainer();
-//var_dump(__METHOD__,$container,$app);die;
+
 $app->group('/mock', function(App $app) use ($container){
    /* $basic_auth = new \Slim\HttpBasicAuth\Rule('Cristian', '123', null, '/user');
     $basic_auth2 = new \Slim\HttpBasicAuth\Rule('Nacho', '123', null, '/user');
@@ -113,8 +113,11 @@ $app->group('/v1', function(App $app){
         $mgProducts = $db->getCollection('products');
         $route = $request->getAttribute('route');
         $id = $route->getArgument('id'); 
+        $data = $mgProducts->getDocument($id);
         $datos = $request->getParsedBody();
-        //
+        $product = $data->set('name',$datos)->save();
+
+        /*
         $product = $mgProducts->update( 
             // lo que busca
             array(
@@ -131,6 +134,7 @@ $app->group('/v1', function(App $app){
                 'multiple' => false,
             )
             );
+            */
         return $response->withStatus(202)->withJson($product);
     });
 
@@ -138,7 +142,6 @@ $app->group('/v1', function(App $app){
         $db = $app->getContainer()['db'];
         $mgProducts = $db->getCollection('products');
         $datos = $request->getParsedBody();
-        //
         $product = $mgProducts->createDocument( 
             [ 
                 'name' => $datos['nombre'],
@@ -146,15 +149,16 @@ $app->group('/v1', function(App $app){
                 'description' => $datos['descripcion']
             ]
         )->save(false);
-        /*$product=$mgProducts->insert(
-            [ 
-                'name' => $datos['nombre'],
-                'price' => $datos['precio'],
-                'description' => $datos['descripcion']
-            ]
-        );
-        */
         return $response->withStatus(201)->withJson($product);
+    });
+
+    $app->delete('/product/{id}',function(Request $request, Response $response, $id) use ($app){
+        $db = $app->getContainer()['db'];
+        $mgProducts = $db->getCollection('products');
+        $route = $request->getAttribute('route');
+        $id = $route->getArgument('id');
+        $product = $mgProducts->getDocument($id)->delete(); 
+        return $response->withStatus(204);
     });
 /*
     $app->get('/user/{id}',function(Request $request, Response $response, $args){
@@ -173,11 +177,6 @@ $app->group('/v1', function(App $app){
         return $response->withStatus(204);
     });
     
-    
-    
-    $app->delete('/product/{id}',function(Request $request, Response $response, array $args){
-        return $response->withStatus(204);
-    });
 
     $app->get('/purchase/{id}',function(Request $request, Response $response, $args){
         return $response->withStatus(200)->withJson();
@@ -185,7 +184,7 @@ $app->group('/v1', function(App $app){
     $app->get('/purchase',function(Request $request, Response $response, array $args){
         return $response->withStatus(200)->withJson();
     });
-    $app->post('/purchase',function(Request $request, Response $response, array $args){
+    $app->post('/productpurchase',function(Request $request, Response $response, array $args){
         return $response->withStatus(201)->withJson();
     });
     $app->put('/purchase/{id}',function(Request $request, Response $response, array $args){
