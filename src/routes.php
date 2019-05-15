@@ -96,7 +96,7 @@ $app->group('/v1', function(App $app){
     $app->get('/product[/]',function(Request $request, Response $response,$id) use ($app){
         $db = $app->getContainer()['db'];
         $mgProducts = $db->getCollection('products');
-        return $response->withStatus(200)->withJson($mgProducts->find()->slice('products',5)->findAll());
+        return $response->withStatus(200)->withJson($mgProducts->find()->slice('products',1000)->findAll());
     });       
 
 
