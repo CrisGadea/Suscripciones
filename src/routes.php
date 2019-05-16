@@ -284,7 +284,7 @@ $app->group('/v1', function(App $app){
         $db = $app->getContainer()['db'];
         $mgPurchase = $db->getCollection('purchases');
         return $response->withStatus(200)->withJson($mgPurchase->find()->slice('purchases',1000)->findAll());
-    });*
+    });
 
     $app->post('/purchase[/]',function(Request $request, Response $response, array $args) use($app){
         $db = $app->getContainer()['db'];
